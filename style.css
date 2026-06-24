@@ -165,7 +165,11 @@ header {
     display: inline-block;
 }
 
+/* إلغاء وتصفير تنسيقات الأزرار الافتراضية للمتصفحات لزر المنسدلة */
 .dropdown-trigger {
+    background: none;
+    border: none;
+    font-family: inherit;
     color: var(--brand-blue);
     font-size: 13px;
     font-weight: 700;
@@ -173,6 +177,8 @@ header {
     padding: 6px 10px;
     border-radius: 50px;
     user-select: none;
+    outline: none;
+    -webkit-appearance: none;
 }
 
 .dropdown-content {
