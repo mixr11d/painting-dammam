@@ -126,23 +126,15 @@ header {
 }
 
 /* ==========================================
-   إضافات وتنسيقات شريط التنقل المتجاوب للجوال
+   تنسيقات شريط التنقل المتجاوب للجوال
    ========================================== */
 .nav-bar {
     display: flex;
-    justify-content: flex-start; /* محاذاة لليمين للسماح بالتمرير الأفقي بسلاسة */
+    justify-content: space-around; /* توزيع الروابط الأربعة بمسافات متناسقة للجوال تلقائياً */
     align-items: center;
-    gap: 8px;
     padding: 10px 0;
     border-top: 1px solid #f1f5f9;
     background: #fff;
-    overflow-x: auto; /* ميزة السحب والتصفح السريع بالأصابع للروابط على الجوال */
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-}
-
-.nav-bar::-webkit-scrollbar {
-    display: none; /* إخفاء شريط التمرير لمظهر فخم ونظيف */
 }
 
 .nav-bar a {
@@ -150,7 +142,7 @@ header {
     text-decoration: none;
     font-size: 13px;
     font-weight: 700;
-    padding: 6px 10px;
+    padding: 6px 12px;
     border-radius: 50px;
     transition: background-color 0.2s, color 0.2s;
 }
@@ -159,8 +151,14 @@ header {
     background-color: rgba(30, 58, 138, 0.05);
 }
 
-/* زر تفعيل وإغلاق خدماتنا في القائمة */
-.nav-btn-link {
+/* بنية القائمة المنسدلة العائمة التفاعلية المتوافقة 100% مع شاشات اللمس للجوال */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* إلغاء وتصفير تنسيقات الأزرار الافتراضية للمتصفحات لزر المنسدلة ليتطابق مع القائمة */
+.dropdown-trigger {
     background: none;
     border: none;
     font-family: inherit;
@@ -168,7 +166,7 @@ header {
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
-    padding: 6px 10px;
+    padding: 6px 12px;
     border-radius: 50px;
     user-select: none;
     outline: none;
@@ -176,49 +174,53 @@ header {
     -webkit-appearance: none;
 }
 
-.nav-btn-link.active {
+.dropdown-trigger:hover, .dropdown-trigger.active {
     background-color: rgba(30, 58, 138, 0.05);
     color: var(--brand-gold);
 }
 
-/* شريط الخدمات الفرعي المشترك الانزلاقي */
-.sub-nav-bar {
-    display: none; /* مخفي افتراضياً */
-    background-color: var(--bg-light);
-    border-top: 1px dashed #cbd5e1;
-    border-bottom: 1px solid #cbd5e1;
-    padding: 10px;
-    text-align: right;
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    gap: 10px;
-    justify-content: flex-start;
-}
-
-.sub-nav-bar::-webkit-scrollbar {
-    display: none;
-}
-
-.sub-nav-bar.show {
-    display: flex; /* يظهر كشريط مرن عند الضغط */
-}
-
-.sub-nav-bar a {
-    color: #475569;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 6px 12px;
-    background: #fff;
+/* تصميم المنسدلة العائمة الفخمة (تطفو فوق المحتوى ولا تدفع الروابط المجاورة لأسفل) */
+.dropdown-content {
+    display: none; /* يتم تفعيله برمجياً بالضغط عبر الكلاس .show */
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
+    z-index: 101;
+    border-radius: 12px;
     border: 1px solid #f1f5f9;
-    border-radius: 50px;
-    transition: background-color 0.2s, color 0.2s;
+    right: 0;
+    top: 100%;
+    margin-top: 8px;
 }
 
-.sub-nav-bar a:hover {
-    background-color: var(--brand-blue);
-    color: #fff;
+.dropdown-content.show {
+    display: block; /* يظهر القائمة العائمة بالضغط */
+}
+
+.dropdown-content a {
+    color: #475569;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 12px;
+    border-bottom: 1px solid #f8fafc;
+    text-align: right;
+    border-radius: 0;
+}
+
+.dropdown-content a:first-child {
+    border-radius: 12px 12px 0 0;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+    border-radius: 0 0 12px 12px;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(30, 58, 138, 0.05);
+    color: var(--brand-blue);
 }
 
 /* ==========================================
