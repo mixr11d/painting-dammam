@@ -1,10 +1,21 @@
-// رقم هاتف العميل المستهدف بالتتبع (بدون صفر البداية لتغطية الصيغ الدولية والمحلية)
-const clientPhoneNumber = "500330612";
+// ==========================================
+// بيانات العميل والمطور (المتحكم الموحد)
+// قم بتعديل هذه القيم فقط لتحديث الموقع والتتبع بالكامل تلقائياً
+// ==========================================
+const clientPhoneMain = "500330612";   // الرقم المجرد بدون صفر أو مفتاح الدولة (يُستخدم لمطابقة السكربت)
+const clientPhoneLocal = "0500330612"; // الرقم بالصيغة المحلية (يُستخدم للاتصال الهاتفي والعرض المرئي)
+const clientPhoneInt = "966500330612"; // الرقم بالصيغة الدولية المعتمدة (يُستخدم لروابط الواتساب)
+
 const googleAdsID = "AW-xxxxxx";
 const labelCall = "LABEL_CALL_xxxxxx";
 const labelWA = "LABEL_WA_xxxxxx";
 const labelForm = "LABEL_FORM_xxxxxx";
-const developerWhatsAppLink = "https://wa.me/966578539687?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A7%D9%84%D8%B1%D8%B9%D8%AF%20%D8%A7%D9%84%D8%AA%D9%82%D9%86%D9%8I%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8Explicit%20%D8%B7%D9%84%D9%81%20%D9%82%D8%AE%D8%AF%D9%85%D8%A9";
+
+const devPhone = "966578539687";      // رقم هاتف المطور (الرعد التقني)
+
+// روابط الواتساب بالترميز المباشر السليم لمنع أي تداخل أو تشوه لغوي
+const developerWhatsAppLink = `https://wa.me/${devPhone}?text=مرحباً%20الرعد%20التقني%20أرغب%20في%20طلب%20خدمة`;
+const clientWhatsAppLink = `https://wa.me/${clientPhoneInt}?text=السلام%20عليكم%20جيتك%20من%20قوقل%20بستفسر%20عن%20خدمة`;
 
 // ==========================================
 // 1. تحميل وتهيئة كود قوقل تاغ ديناميكياً في رأس الصفحة (Head) لمنع التكرار
@@ -59,10 +70,11 @@ function trackFormConversion() {
 
 // ==========================================
 // 3. حقن الهيدر، الفوتر، الأزرار العائمة، وزر الصعود ديناميكياً لجميع الصفحات
+// تم ربط المتغيرات ديناميكياً لتجنب الحشو اليدوي (Hardcoding)
 // ==========================================
 document.addEventListener('DOMContentLoaded', function() {
   
-  // أ. حقن الهيدر المشترك
+  // أ. حقن الهيدر المشترك ديناميكياً
   const headerElement = document.getElementById('globalHeader');
   if (headerElement) {
     headerElement.innerHTML = `
@@ -75,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       <p>دقة ممتازة وجودة مضمونة</p>
                   </div>
               </div>
-              <a href="tel:0500330612" id="headerCallBtn" aria-label="اتصال سريع بالهاتف" class="header-btn">
+              <a href="tel:${clientPhoneLocal}" id="headerCallBtn" aria-label="اتصال سريع بالهاتف" class="header-btn">
                   <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#FFF"/></svg>
                   اتصل الآن
               </a>
@@ -84,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
   }
 
-  // ب. حقن الفوتر المشترك
+  // ب. حقن الفوتر المشترك ديناميكياً
   const footerElement = document.getElementById('globalFooter');
   if (footerElement) {
     footerElement.innerHTML = `
@@ -99,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
           <div class="footer-cta">
               <span>للتواصل وتحديد موعد المعاينة فوراً:</span>
-              <a href="tel:0500330612" id="footerCallBtn" aria-label="اتصال سريع بالهاتف">0500330612</a>
+              <a href="tel:${clientPhoneLocal}" id="footerCallBtn" aria-label="اتصال سريع بالهاتف">${clientPhoneLocal}</a>
           </div>
           
           <div class="footer-links" style="margin-top: 25px; margin-bottom: 15px; font-size: 13px;">
@@ -126,10 +138,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const floatingActions = document.createElement('div');
   floatingActions.className = 'floating-actions';
   floatingActions.innerHTML = `
-    <a href="tel:0500330612" id="floatCallBtn" aria-label="اتصال سريع بالهاتف" class="float-btn f-call">
+    <a href="tel:${clientPhoneLocal}" id="floatCallBtn" aria-label="اتصال سريع بالهاتف" class="float-btn f-call">
         <svg viewBox="0 0 24 24"><path fill="#FFF" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
     </a>
-    <a href="https://wa.me/966500330612?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%88%D9%83%D9%85%20%D8%AC%D9%8A%D8%AA%D9%83%20%D9%85%D9%86%20%D9%82%D9%88%D9%82%D9%84%20%D8%A8%D8%B3%D8%AA%D9%81%D8%B3%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A9" id="floatWhatsAppBtn" aria-label="مراسلة واتساب" class="float-btn f-wa">
+    <a href="${clientWhatsAppLink}" id="floatWhatsAppBtn" aria-label="مراسلة واتساب" class="float-btn f-wa">
         <svg viewBox="0 0 24 24"><path fill="#FFF" d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.559 5.338-11.894 11.893-11.894 3.18 0 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.657zm4.733-3.782l.34.202c1.4.83 3.014 1.267 4.664 1.268h.005c5.648 0 10.245-4.596 10.248-10.244.001-2.737-1.062-5.31-2.993-7.243-1.93-1.933-4.492-3-7.228-3.001-5.652 0-10.25 4.598-10.253 10.247-.001 1.701.444 3.364 1.29 4.86l.22.385-.989 3.61 3.693-.969zm13.725-7.802c-.274-.138-1.62-.8-1.874-.891-.254-.092-.44-.138-.625.138-.185.277-.714.891-.875 1.076-.162.185-.324.208-.598.07-.274-.138-1.16-.427-2.21-1.366-.817-.729-1.37-1.629-1.53-1.892-.161-.277-.017-.426.121-.563.125-.124.275-.323.412-.483.137-.161.183-.276.274-.459.092-.185.046-.346-.023-.483-.069-.138-.625-1.507-.856-2.062-.225-.542-.47-.468-.646-.477-.167-.008-.36-.009-.553-.009-.193 0-.507.073-.77.36-.264.288-1.008.985-1.008 2.4 0 1.417 1.031 2.784 1.175 2.977.145.193 2.03 3.1 4.917 4.346.686.297 1.223.474 1.64.607.69.219 1.319.188 1.815.114.553-.082 1.62-.662 1.848-1.27.228-.607.228-1.127.16-1.236-.068-.109-.253-.185-.527-.323z"/></svg>
     </a>
   `;
@@ -163,9 +175,9 @@ document.addEventListener('click', function(event) {
   const hrefLower = href.toLowerCase();
   const cleanHref = hrefLower.replace(/[\s\-\(\)\.]/g, '');
 
-  if (hrefLower.startsWith('tel:') && cleanHref.includes(clientPhoneNumber)) {
+  if (hrefLower.startsWith('tel:') && cleanHref.includes(clientPhoneMain)) {
     trackCallConversion();
-  } else if ((hrefLower.includes('wa.me') || hrefLower.includes('whatsapp.com')) && cleanHref.includes(clientPhoneNumber)) {
+  } else if ((hrefLower.includes('wa.me') || hrefLower.includes('whatsapp.com')) && cleanHref.includes(clientPhoneMain)) {
     trackWhatsAppConversion();
   }
 });
