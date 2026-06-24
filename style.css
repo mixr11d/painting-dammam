@@ -126,7 +126,7 @@ header {
 }
 
 /* ==========================================
-   إضافات وتنسيقات شريط التنقل والقائمة المنسدلة (Dropdown) للجوال
+   إضافات وتنسيقات شريط التنقل المتجاوب للجوال
    ========================================== */
 .nav-bar {
     display: flex;
@@ -159,14 +159,8 @@ header {
     background-color: rgba(30, 58, 138, 0.05);
 }
 
-/* بنية القائمة المنسدلة المتوافقة بالكامل مع شاشات اللمس للجوال */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-/* إلغاء وتصفير تنسيقات الأزرار الافتراضية للمتصفحات لزر المنسدلة */
-.dropdown-trigger {
+/* زر تفعيل وإغلاق خدماتنا في القائمة */
+.nav-btn-link {
     background: none;
     border: none;
     font-family: inherit;
@@ -178,58 +172,53 @@ header {
     border-radius: 50px;
     user-select: none;
     outline: none;
+    transition: background-color 0.2s, color 0.2s;
     -webkit-appearance: none;
 }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    min-width: 140px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 101;
-    border-radius: 8px;
-    border: 1px solid #f1f5f9;
-    right: 50%;
-    transform: translateX(50%); /* توسيط القائمة المنسدلة تحت الكلمة لعدم خروجها عن الشاشة */
-    top: 100%;
-    margin-top: 5px;
+.nav-btn-link.active {
+    background-color: rgba(30, 58, 138, 0.05);
+    color: var(--brand-gold);
 }
 
-.dropdown:hover .dropdown-content, .dropdown:focus-within .dropdown-content {
-    display: block;
-}
-
-.dropdown-content a {
-    color: #475569;
-    padding: 10px 14px;
-    text-decoration: none;
-    display: block;
-    font-size: 12px;
-    border-bottom: 1px solid #f8fafc;
+/* شريط الخدمات الفرعي المشترك الانزلاقي */
+.sub-nav-bar {
+    display: none; /* مخفي افتراضياً */
+    background-color: var(--bg-light);
+    border-top: 1px dashed #cbd5e1;
+    border-bottom: 1px solid #cbd5e1;
+    padding: 10px;
     text-align: right;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    gap: 10px;
+    justify-content: flex-start;
 }
 
-.dropdown-content a:last-child {
-    border-bottom: none;
-    border-radius: 0 0 8px 8px;
+.sub-nav-bar::-webkit-scrollbar {
+    display: none;
 }
 
-.dropdown-content a:first-child {
-    border-radius: 8px 8px 0 0;
+.sub-nav-bar.show {
+    display: flex; /* يظهر كشريط مرن عند الضغط */
 }
 
-/* حل ذكي بالـ CSS فقط لحماية المنسدلة من القص العمودي في الجوال */
-@media (max-width: 767px) {
-    .dropdown-content {
-        position: relative; /* تحويلها لنسبية في الجوال لتتوسع للأسفل بأمان ولا يحجبها شريط التمرير */
-        right: auto;
-        transform: none;
-        box-shadow: none;
-        border: none;
-        background: var(--bg-light);
-        min-width: 100%;
-    }
+.sub-nav-bar a {
+    color: #475569;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6px 12px;
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    border-radius: 50px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.sub-nav-bar a:hover {
+    background-color: var(--brand-blue);
+    color: #fff;
 }
 
 /* ==========================================
@@ -1092,4 +1081,68 @@ main p {
 .about-list li {
     margin-bottom: 8px;
     padding-right: 5px;
+}
+
+/* ==========================================
+   تنسيقات شريط الخدمات الفرعي الانزلاقي المشترك الجديد
+   ========================================== */
+.sub-nav-bar {
+    display: none; /* مخفي افتراضياً */
+    background-color: var(--bg-light);
+    border-top: 1px dashed #cbd5e1;
+    border-bottom: 1px solid #cbd5e1;
+    padding: 10px;
+    text-align: right;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.sub-nav-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.sub-nav-bar.show {
+    display: flex; /* يظهر كشريط مرن عند الضغط */
+}
+
+.sub-nav-bar a {
+    color: #475569;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6px 12px;
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    border-radius: 50px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.sub-nav-bar a:hover {
+    background-color: var(--brand-blue);
+    color: #fff;
+}
+
+/* زر خدماتنا في القائمة بعد تصحيحه وإزالة الخصائص الافتراضية للمتصفحات */
+.nav-btn-link {
+    background: none;
+    border: none;
+    font-family: inherit;
+    color: var(--brand-blue);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 50px;
+    user-select: none;
+    outline: none;
+    transition: background-color 0.2s, color 0.2s;
+    -webkit-appearance: none;
+}
+
+.nav-btn-link.active {
+    background-color: rgba(30, 58, 138, 0.05);
+    color: var(--brand-gold);
 }
