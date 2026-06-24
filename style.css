@@ -958,3 +958,7 @@ footer p {
     width: 16px;
     height: 16px;
 }
+/* تحسين قراءة النصوص الطويلة والفقرات القانونية على الجوال */
+main p {
+    line-height: 1.8 !important;
+}
