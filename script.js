@@ -19,7 +19,7 @@ const cleanClientPhone = clientPhoneLocal.replace(/^(00966|966|0)/, '');
 
 // روابط الواتساب بالترميز المباشر السليم لمنع أي تداخل أو تشوه لغوي
 const developerWhatsAppLink = `https://wa.me/${devPhone}?text=%D8%A7%D9%84%D8%B1%D8%B9%D8%AF%20%D9%85%D8%B7%D9%88%D8%B1%20%D9%85%D9%88%D8%A7%D9%82%D8%B9%20%D9%88%D8%A7%D8%B9%D9%84%D8%A7%D9%86%D8%A7%D8%AA`;
-const clientWhatsAppLink = `https://wa.me/966${cleanClientPhone}?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%AC%D9%8A%D8%AA%D9%83%20%D9%85%D9%86%20%D9%82%D9%88%D9%82%D9%84%20%D8%A8%D8%B3%D8%AA%D9%81%D8%B3%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A9`;
+const clientWhatsAppLink = `https://wa.me/966${cleanClientPhone}?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%20%D8%AC%D9%8Lock%20%D9%85%D9%86%20%D9%82%D9%88%D9%82%D9%84%20%D8%A8%D8%B3%D8%AA%D9%81%D8%B3%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A9`;
 
 // ==========================================
 // 1. تحميل وتهيئة كود قوقل تاغ ديناميكياً في رأس الصفحة (Head) لمنع التكرار
@@ -78,7 +78,7 @@ function trackFormConversion() {
 // ==========================================
 document.addEventListener('DOMContentLoaded', function() {
   
-  // أ. حقن الهيدر المشترك ديناميكياً مع تفعيل قائمة خدماتنا المنسدلة (Dropdown)
+  // أ. حقن الهيدر المشترك ديناميكياً مع تفعيل زر خدماتنا المطور والشريط الفرعي الانزلاقي
   const headerElement = document.getElementById('globalHeader');
   if (headerElement) {
     headerElement.innerHTML = `
@@ -96,23 +96,22 @@ document.addEventListener('DOMContentLoaded', function() {
                   اتصل الآن
               </a>
           </div>
-          <!-- شريط التنقل المتجاوب المطور للجوال بالتقسيمات والروابط الجديدة -->
+          <!-- شريط التنقل المتجاوب المطور والمسطح لحماية أبعاد الروابط المجاورة -->
           <nav class="nav-bar">
               <a href="index.html">الرئيسية</a>
               <a href="about.html">من نحن؟</a>
-              <div class="dropdown">
-                  <!-- تصحيح التصفح باللمس: استبدال وسم الـ span بـ button ليقبل التركيز (Focus) برمجياً على آيفون وأندرويد -->
-                  <button type="button" class="dropdown-trigger">خدماتنا ▾</button>
-                  <div class="dropdown-content">
-                      <a href="interior-paint.html">أصباغ داخلية</a>
-                      <a href="exterior-paint.html">أصباغ خارجية</a>
-                      <a href="restoration.html">ترميم وتشطيب</a>
-                      <a href="gypsum.html">جبس بورد</a>
-                      <a href="insulation.html">عوازل أسطح</a>
-                  </div>
-              </div>
+              <!-- زر تفعيل وإغلاق شريط الخدمات التفاعلي بلمسة واحدة -->
+              <button type="button" id="servicesToggleBtn" class="nav-btn-link">خدماتنا ▾</button>
               <a href="contact.html">تواصل معنا</a>
           </nav>
+          <!-- شريط الخدمات الفرعي الانزلاقي المشترك (مخفي افتراضياً ويتوسع لأسفل بنقرة واحدة بمحاذاة ممتازة لليمين واليسار) -->
+          <div id="subServicesBar" class="sub-nav-bar">
+              <a href="interior-paint.html">أصباغ داخلية</a>
+              <a href="exterior-paint.html">أصباغ خارجية</a>
+              <a href="restoration.html">ترميم وتشطيب</a>
+              <a href="gypsum.html">جبس بورد</a>
+              <a href="insulation.html">عوازل أسطح</a>
+          </div>
       </div>
     `;
   }
@@ -190,6 +189,23 @@ document.addEventListener('DOMContentLoaded', function() {
 // معالجة مشاكل: النوافذ المنبثقة (Popups) + المسافات والرموز + حالة الأحرف (Case Sensitivity)
 // ==========================================
 document.addEventListener('click', function(event) {
+  // أ. التعامل مع تفعيل وإغلاق شريط الخدمات الفرعي بلمسة واحدة (Toggle) لحل مشكلة اللمس والقص
+  const toggleBtn = event.target.closest('#servicesToggleBtn');
+  const subBar = document.getElementById('subServicesBar');
+  
+  if (toggleBtn && subBar) {
+    event.preventDefault();
+    subBar.classList.toggle('show');
+    toggleBtn.classList.toggle('active');
+    return; // إنهاء الحدث فوراً للـ Toggle
+  } else if (subBar && !event.target.closest('#subServicesBar') && subBar.classList.contains('show')) {
+    // إغلاق شريط الخدمات الفرعي تلقائياً لو نقر المستخدم في أي مكان خارج المنيو لراحة التصفح
+    subBar.classList.remove('show');
+    const activeBtn = document.getElementById('servicesToggleBtn');
+    if (activeBtn) activeBtn.classList.remove('active');
+  }
+
+  // ب. تتبع نقرات أزرار الاتصال والواتساب الموحد
   const anchor = event.target.closest('a');
   if (!anchor) return;
 
