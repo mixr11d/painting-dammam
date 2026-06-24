@@ -96,27 +96,28 @@ document.addEventListener('DOMContentLoaded', function() {
                   اتصل الآن
               </a>
           </div>
-          <!-- شريط التنقل المتجاوب المطور للجوال -->
+          <!-- شريط التنقل المتجاوب المطور للجوال بالتقسيمات والروابط الجديدة -->
           <nav class="nav-bar">
-              <a href="index.html#">الرئيسية</a>
-              <a href="index.html#about">من نحن؟</a>
+              <a href="index.html">الرئيسية</a>
+              <a href="about.html">من نحن؟</a>
               <div class="dropdown">
-                  <span class="dropdown-trigger">خدماتنا ▾</span>
+                  <!-- تصحيح التصفح باللمس: استبدال وسم الـ span بـ button ليقبل التركيز (Focus) برمجياً على آيفون وأندرويد -->
+                  <button type="button" class="dropdown-trigger">خدماتنا ▾</button>
                   <div class="dropdown-content">
-                      <a href="index.html#interior-paint">أصباغ داخلية</a>
-                      <a href="index.html#exterior-paint">أصباغ خارجية</a>
-                      <a href="index.html#restoration">ترميم وتشطيب</a>
-                      <a href="index.html#gypsum">جبس بورد</a>
-                      <a href="index.html#insulation">عوازل أسطح</a>
+                      <a href="interior-paint.html">أصباغ داخلية</a>
+                      <a href="exterior-paint.html">أصباغ خارجية</a>
+                      <a href="restoration.html">ترميم وتشطيب</a>
+                      <a href="gypsum.html">جبس بورد</a>
+                      <a href="insulation.html">عوازل أسطح</a>
                   </div>
               </div>
-              <a href="index.html#contactForm">تواصل معنا</a>
+              <a href="contact.html">تواصل معنا</a>
           </nav>
       </div>
     `;
   }
 
-  // ب. حقن الفوتر المشترك ديناميكياً بالتصنيفات المنظمة والروابط المصححة
+  // ب. حقن الفوتر المشترك ديناميكياً بالتصنيفات المنظمة الجديدة والروابط المصححة
   const footerElement = document.getElementById('globalFooter');
   if (footerElement) {
     footerElement.innerHTML = `
@@ -129,14 +130,13 @@ document.addEventListener('DOMContentLoaded', function() {
               <a href="tel:${clientPhoneLocal}" id="footerCallBtn" aria-label="اتصال سريع بالهاتف">${clientPhoneLocal}</a>
           </div>
 
-          <!-- شبكة روابط الفوتر الثلاثية المنظمة برمجياً -->
+          <!-- شبكة روابط الفوتر الثلاثية المنظمة برمجياً للتنقل بين الصفحات المستقلة -->
           <div class="footer-links-grid">
               <div class="footer-col">
                   <h4>روابط تهمك</h4>
-                  <a href="index.html#">الرئيسية</a>
-                  <a href="index.html#about">من نحن؟</a>
-                  <a href="index.html#interior-paint">خدماتنا</a>
-                  <a href="index.html#contactForm">تواصل معنا</a>
+                  <a href="index.html">الرئيسية</a>
+                  <a href="about.html">من نحن؟</a>
+                  <a href="contact.html">تواصل معنا</a>
               </div>
               <div class="footer-col">
                   <h4>روابط السياسة والضمان</h4>
@@ -199,7 +199,6 @@ document.addEventListener('click', function(event) {
   const hrefLower = href.toLowerCase();
   const cleanHref = hrefLower.replace(/[\s\-\(\)\.]/g, '');
 
-  // تصحيح سحب المتغير غير المعرف واستخدام المتغير الموحد والنظيف cleanClientPhone لضمان استقرار التتبع
   if (hrefLower.startsWith('tel:') && cleanHref.includes(cleanClientPhone)) {
     trackCallConversion();
   } else if ((hrefLower.includes('wa.me') || hrefLower.includes('whatsapp.com')) && cleanHref.includes(cleanClientPhone)) {
