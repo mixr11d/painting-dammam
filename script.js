@@ -50,6 +50,7 @@ function trackCallConversion() {
   }
 }
 
+// تتبع النقر على زر الواتساب للعميل
 function trackWhatsAppConversion() {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'conversion', {
@@ -61,6 +62,7 @@ function trackWhatsAppConversion() {
   }
 }
 
+// تتبع نموذج الاتصال
 function trackFormConversion() {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'conversion', {
@@ -78,7 +80,7 @@ function trackFormConversion() {
 // ==========================================
 document.addEventListener('DOMContentLoaded', function() {
   
-  // أ. حقن الهيدر المشترك ديناميكياً بالترتيب المطلوب: الرئيسية ⬅️ من نحن؟ ⬅️ تواصل معنا ⬅️ خدماتنا
+  // أ. حقن الهيدر بالترتيب الجديد: الرئيسية ⬅️ خدماتنا ▾ ⬅️ تواصل معنا ⬅️ من نحن؟ لتوفير مساحة آمنة للمنسدلة
   const headerElement = document.getElementById('globalHeader');
   if (headerElement) {
     headerElement.innerHTML = `
@@ -96,13 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
                   اتصل الآن
               </a>
           </div>
-          <!-- شريط التنقل المتجاوب المطور بالترتيب المطلوب والمنسدل عائلياً -->
+          <!-- شريط التنقل المتجاوب المطور بالترتيب الآمن: الرئيسية ⬅️ خدماتنا ⬅️ تواصل معنا ⬅️ من نحن؟ -->
           <nav class="nav-bar">
               <a href="index.html">الرئيسية</a>
-              <a href="about.html">من نحن؟</a>
-              <a href="contact.html">تواصل معنا</a>
               <div class="dropdown">
-                  <!-- زر تفعيل القائمة المنسدلة التفاعلي المعرف بـ dropdownBtn -->
                   <button type="button" class="dropdown-trigger" id="dropdownBtn">خدماتنا ▾</button>
                   <div class="dropdown-content" id="myDropdownContent">
                       <a href="interior-paint.html">أصباغ داخلية</a>
@@ -112,12 +111,14 @@ document.addEventListener('DOMContentLoaded', function() {
                       <a href="insulation.html">عوازل أسطح</a>
                   </div>
               </div>
+              <a href="contact.html">تواصل معنا</a>
+              <a href="about.html">من نحن؟</a>
           </nav>
       </div>
     `;
   }
 
-  // ب. حقن الفوتر المشترك ديناميكياً بالقائمة المنسدلة والروابط المطلوبة كاملة بداخل "روابط تهمك"
+  // ب. حقن الفوتر المشترك ديناميكياً بالتصنيفات المنظمة الجديدة والروابط المصححة
   const footerElement = document.getElementById('globalFooter');
   if (footerElement) {
     footerElement.innerHTML = `
@@ -130,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <a href="tel:${clientPhoneLocal}" id="footerCallBtn" aria-label="اتصال سريع بالهاتف">${clientPhoneLocal}</a>
           </div>
 
-          <!-- شبكة روابط الفوتر الثنائية المنظمة برمجياً للمستهلك والسياسات مع إدراج كامل الخدمات تحت "روابط تهمك" -->
+          <!-- شبكة روابط الفوتر الثلاثية المنظمة برمجياً للتنقل بين الصفحات المستقلة -->
           <div class="footer-links-grid">
               <div class="footer-col">
                   <h4>روابط تهمك</h4>
@@ -195,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // معالجة مشاكل: النوافذ المنبثقة (Popups) + المسافات والرموز + حالة الأحرف (Case Sensitivity)
 // ==========================================
 document.addEventListener('click', function(event) {
-  // أ. برمجة فتح وإغلاق المنسدلة التفاعلي بلمسة واحدة (Toggle Click) بالأنماط المباشرة الفورية وضمان عدم التعطل
+  // أ. برمجة فتح وإغلاق المنسدلة التفاعلي بلمسة واحدة (Toggle Click) بالأنماط المباشرة السريعة في السكربت
   const dropdownTrigger = event.target.closest('#dropdownBtn');
   const dropdownContent = document.getElementById('myDropdownContent');
   
