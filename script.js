@@ -1,21 +1,23 @@
 // ==========================================
-// بيانات العميل والمطور (المتحكم الموحد)
+// بيانات العميل والمطور والمفاتيح (المتحكم الموحد)
 // قم بتعديل هذه القيم فقط لتحديث الموقع والتتبع بالكامل تلقائياً
 // ==========================================
-const clientPhoneMain = "500330612";   // الرقم المجرد بدون صفر أو مفتاح الدولة (يُستخدم لمطابقة السكربت)
-const clientPhoneLocal = "0500330612"; // الرقم بالصيغة المحلية (يُستخدم للاتصال الهاتفي والعرض المرئي)
-const clientPhoneInt = "966500330612"; // الرقم بالصيغة الدولية المعتمدة (يُستخدم لروابط الواتساب)
+const clientPhoneMain = "500330612";   // الرقم المجرد بدون صفر أو مفتاح الدولة (يُسخدم لمطابقة السكربت)
+const clientPhoneLocal = "0500330612"; // رقم هاتف العميل بالصيغة المحلية للموقع والفوتر
+const devPhone = "966578539687";       // رقم واتساب المطور (الرعد التقني)
 
-const googleAdsID = "AW-xxxxxx";
-const labelCall = "LABEL_CALL_xxxxxx";
-const labelWA = "LABEL_WA_xxxxxx";
-const labelForm = "LABEL_FORM_xxxxxx";
+// إعدادات تتبع إعلانات قوقل (Google Ads)
+const googleTagID = "AW-xxxxxx";        // معرف الحساب الأساسي
+const labelCall = "LABEL_CALL_xxxxxx";  // تسمية التحويل لنقرات الاتصال
+const labelWA = "LABEL_WA_xxxxxx";      // تسمية التحويل لنقرات الواتساب
+const labelForm = "LABEL_FORM_xxxxxx";  // تسمية التحويل لنموذج الاتصال
 
-const devPhone = "966578539687";      // رقم هاتف المطور (الرعد التقني)
+// مفتاح الوصول المجاني لاستلام الرسائل على إيميلك من موقع web3forms.com
+const web3formsAccessKey = "ضع_مفتاح_الوصول_المجاني_الخاص_بك_هنا";
 
 // روابط الواتساب بالترميز المباشر السليم لمنع أي تداخل أو تشوه لغوي
 const developerWhatsAppLink = `https://wa.me/${devPhone}?text=مرحباً%20الرعد%20التقني%20أرغب%20في%20طلب%20خدمة`;
-const clientWhatsAppLink = `https://wa.me/${clientPhoneInt}?text=السلام%20عليكم%20جيتك%20من%20قوقل%20بستفسر%20عن%20خدمة`;
+const clientWhatsAppLink = `https://wa.me/966${clientPhoneMain}?text=السلام%20عليكم%20جيتك%20من%20قوقل%20بستفسر%20عن%20خدمة`;
 
 // ==========================================
 // 1. تحميل وتهيئة كود قوقل تاغ ديناميكياً في رأس الصفحة (Head) لمنع التكرار
@@ -197,7 +199,7 @@ document.addEventListener('submit', function(event) {
     const formData = new FormData(form);
     const apiEndpoint = "https://api.web3forms.com/submit"; 
     
-    formData.append("access_key", "ضع_مفتاح_الوصول_المجاني_الخاص_بك_هنا");
+    formData.append("access_key", web3formsAccessKey);
 
     fetch(apiEndpoint, {
       method: "POST",
