@@ -64,7 +64,7 @@ header {
     z-index: 100;
 }
 
-/* حل ذكي لحجز مساحة الهيدر مسبقاً لمنع كسر واهتزاز التصميم (CLS) قبل تحميل السكربت */
+/* حجز مساحة الهيدر مسبقاً لمنع اهتزاز التصميم (CLS) قبل تحميل السكربت */
 #globalHeader {
     display: block;
     min-height: 135px; 
@@ -149,7 +149,7 @@ header {
     text-decoration: none;
     font-size: 13px;
     font-weight: 700;
-    padding: 6px 10px;
+    padding: 6px 12px;
     border-radius: 50px;
     transition: background-color 0.2s, color 0.2s;
 }
@@ -158,8 +158,15 @@ header {
     background-color: rgba(30, 58, 138, 0.05);
 }
 
-/* زر تفعيل وإغلاق خدماتنا في القائمة */
-.nav-btn-link {
+/* بنية القائمة المنسدلة العائمة التفاعلية المتوافقة 100% مع شاشات اللمس للجوال */
+/* إجبار المتصفح بـ !important على تثبيت المرجع لمنع تمدد أو طيران القائمة للأعلى نهائياً */
+.dropdown {
+    position: relative !important;
+    display: inline-block !important;
+}
+
+/* إلغاء وتصفير تنسيقات الأزرار الافتراضية للمتصفحات لزر المنسدلة ليتطابق مع القائمة */
+.dropdown-trigger {
     background: none;
     border: none;
     font-family: inherit;
@@ -175,49 +182,66 @@ header {
     -webkit-appearance: none;
 }
 
-.nav-btn-link.active {
+.dropdown-trigger:hover, .dropdown-trigger.active {
     background-color: rgba(30, 58, 138, 0.05);
     color: var(--brand-gold);
 }
 
-/* شريط الخدمات الفرعي المشترك الانزلاقي */
-.sub-nav-bar {
-    display: none; /* مخفي افتراضياً */
-    background-color: var(--bg-light);
-    border-top: 1px dashed #cbd5e1;
-    border-bottom: 1px solid #cbd5e1;
-    padding: 10px;
-    text-align: right;
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    gap: 10px;
-    justify-content: flex-start;
-}
-
-.sub-nav-bar::-webkit-scrollbar {
-    display: none;
-}
-
-.sub-nav-bar.show {
-    display: flex; /* يظهر كشريط مرن عند الضغط */
-}
-
-.sub-nav-bar a {
-    color: #475569;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 6px 12px;
-    background: #fff;
+/* تصميم المنسدلة العائمة الفخمة (تطفو فوق المحتوى ولا تدفع الروابط المجاورة لأسفل) */
+.dropdown-content {
+    display: none; /* يتم التحكم بالظهور برمجياً بالضغط عبر السكربت */
+    position: absolute !important;
+    background-color: #fff;
+    min-width: 150px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.08);
+    z-index: 101;
+    border-radius: 12px;
     border: 1px solid #f1f5f9;
-    border-radius: 50px;
-    transition: background-color 0.2s, color 0.2s;
+    /* ضبط التموضع لليمين لتستفيد القائمة من مساحة الأمان بالوسط ولا تلامس حواف الشاشة اليسرى */
+    right: 0 !important;
+    left: auto !important;
+    top: 100% !important;
+    margin-top: 8px !important;
 }
 
-.sub-nav-bar a:hover {
-    background-color: var(--brand-blue);
-    color: #fff;
+.dropdown-content a {
+    color: #475569;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 12px;
+    border-bottom: 1px solid #f8fafc;
+    text-align: right;
+    border-radius: 0;
+}
+
+.dropdown-content a:first-child {
+    border-radius: 12px 12px 0 0;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+    border-radius: 0 0 12px 12px;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(30, 58, 138, 0.05);
+    color: var(--brand-blue);
+}
+
+/* تأكيد الوضعية المطلقة العائمة لمنع أي اهتزاز أو انزياح بمحتوى الصفحة ومواقع الروابط المجاورة */
+@media (max-width: 767px) {
+    .dropdown-content {
+        position: absolute !important; /* إبقائها عائمة كـ طبقة علوية فوق البانر دون حجب أو إزاحة */
+        right: 0 !important;
+        left: auto !important;
+        box-shadow: 0px 8px 24px rgba(0,0,0,0.12);
+        border: 1px solid #f1f5f9;
+        background: #fff;
+        min-width: 150px;
+        top: 100% !important;
+        margin-top: 8px !important;
+    }
 }
 
 /* ==========================================
@@ -467,7 +491,7 @@ header {
 
 .service-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.04);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.04) rotate(0);
 }
 
 .service-icon {
@@ -968,7 +992,7 @@ footer p {
     height: 16px;
 }
 
-/* تفعيل تباعد الأسطر المريح لقراءة الفقرات الطويلة تماشياً مع معايير السيو وإتاحة الوصول للجوال */
+/* تحسين قراءة النصوص الطويلة والفقرات القانونية على الجوال */
 main p {
     line-height: 1.8 !important;
 }
