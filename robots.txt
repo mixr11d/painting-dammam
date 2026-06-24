@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://painting-dammam.pages.dev/sitemap.xml
