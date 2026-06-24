@@ -200,7 +200,6 @@ header {
     text-decoration: none;
     display: block;
     font-size: 12px;
-    border-radius: 0;
     border-bottom: 1px solid #f8fafc;
     text-align: right;
 }
@@ -212,6 +211,19 @@ header {
 
 .dropdown-content a:first-child {
     border-radius: 8px 8px 0 0;
+}
+
+/* حل ذكي بالـ CSS فقط لحماية المنسدلة من القص العمودي في الجوال */
+@media (max-width: 767px) {
+    .dropdown-content {
+        position: relative; /* تحويلها لنسبية في الجوال لتتوسع للأسفل بأمان ولا يحجبها شريط التمرير */
+        right: auto;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background: var(--bg-light);
+        min-width: 100%;
+    }
 }
 
 /* ==========================================
@@ -958,7 +970,120 @@ footer p {
     width: 16px;
     height: 16px;
 }
+
 /* تحسين قراءة النصوص الطويلة والفقرات القانونية على الجوال */
 main p {
     line-height: 1.8 !important;
+}
+
+/* ==========================================
+   أكواد التنسيق الإضافية والمحدثة (لمنع التضارب البصري)
+   ========================================== */
+
+/* 1. تنسيقات بطاقات الاتصال المتجاوبة بصفحة تواصل معنا */
+.contact-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+@media (min-width: 768px) {
+    .contact-cards-grid {
+        grid-template-columns: repeat(2, 1fr); /* تظهر بجانب بعضها على الشاشات الكبيرة */
+    }
+}
+
+.contact-card-item {
+    background: var(--bg-light);
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: right;
+}
+
+.contact-card-icon {
+    background: rgba(30, 58, 138, 0.06);
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.contact-card-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--brand-blue);
+}
+
+.contact-card-icon.c-wa-icon {
+    background: rgba(37, 211, 102, 0.06);
+}
+
+.contact-card-icon.c-wa-icon svg {
+    fill: var(--brand-green);
+}
+
+.contact-card-item h2 {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--brand-dark);
+    margin: 0;
+}
+
+.contact-card-item p {
+    font-size: 13px;
+    color: #475569;
+    margin-top: 2px;
+}
+
+.contact-card-item p a {
+    color: var(--brand-blue);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* 2. تنسيقات صفحة من نحن التفصيلية المحدثة */
+.about-page-content h1 {
+    font-size: 28px;
+    color: var(--brand-blue);
+    font-weight: 900;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--brand-gold);
+    padding-bottom: 10px;
+}
+
+.about-page-content h2 {
+    font-size: 18px;
+    color: var(--brand-blue);
+    font-weight: 700;
+    margin-top: 30px; /* مسافة علوية كافية لفصل الفقرات بصرياً على الجوال */
+    margin-bottom: 10px;
+}
+
+.about-page-content p {
+    font-size: 14px;
+    color: #475569;
+    margin-bottom: 15px;
+    line-height: 1.8 !important; /* تفعيل التباعد المريح للعين تلقائياً */
+}
+
+.about-list {
+    margin-right: 20px; /* إزاحة لليمين تماشياً مع الـ RTL */
+    margin-bottom: 25px;
+    font-size: 14px;
+    color: #475569;
+    list-style-type: square;
+    line-height: 1.8 !important;
+}
+
+.about-list li {
+    margin-bottom: 8px;
+    padding-right: 5px;
 }
